@@ -1,4 +1,4 @@
-from .. import Table
+from ..main import Table
 if __name__ == "__main__" and not __debug__: # definitions
     print("Table definitions:")
     #print(f"{Table() = }")
