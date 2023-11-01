@@ -15,6 +15,9 @@ print(tbl) # <>
 tbl.append(1)
 tbl["foo"] = "bar"
 print(tbl) # <1, foo: 'bar'>
-print(tbl == Table(1,foo="bar")) # True
 
 print(repr(tbl)) # Table([1]; {"foo": "bar"})
+tbl += [2,3,4]
+print(tbl) # <1, 2, 3, 4, foo: 'bar'>
+print(tbl == Table(1,2,3,4,foo="bar"))
+```
