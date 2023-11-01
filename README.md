@@ -1,7 +1,11 @@
-# LuaTable
+# Python-Tables
 Implementing tables from Lua into Python 3.12
 
 ## Usage
+
+```bash
+pip install python-tables
+```
 
 ```py
 from luatable import Table

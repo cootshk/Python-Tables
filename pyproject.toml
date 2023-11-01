@@ -1,0 +1,21 @@
+[project]
+name = "python-tables"
+version = "0.0.1"
+authors = [
+  { name="Cootshk", email="author@example.com" },
+]
+description = "Tables from lua, in python"
+readme = "README.md"
+requires-python = ">=3.12"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Operating System :: OS Independent",
+    "Development Status :: 4 - Beta",
+
+]
+dependencies = []
+[project.urls]
+"Homepage" = "https://github.com/Cootshk/luatable"
+"Bug Tracker" = "https://github.com/Cootshk/luatable/issues"
+
