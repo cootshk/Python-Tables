@@ -10,11 +10,7 @@ tbl = Table()
 print(tbl) # <>
 tbl.append(1)
 tbl["foo"] = "bar"
-print(tbl) # <1, 'foo': 'bar'>
+print(tbl) # <1, foo: 'bar'>
 print(tbl == Table(1,foo="bar")) # True
 
-print(tbl.foreach(lambda x, y: print(f"{x = }\n{y = }")))
-# x = 0
-# y = 1
-# x = foo
-# y = bar
+print(repr(tbl)) # Table([1]; {"foo": "bar"})
