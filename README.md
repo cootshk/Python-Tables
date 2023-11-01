@@ -8,7 +8,7 @@ pip install python-tables
 ```
 
 ```py
-from luatable import Table
+from python-tables import Table
 
 tbl = Table()
 print(tbl) # <>
