@@ -211,6 +211,7 @@ if __name__ == "__main__" and not __debug__: # definitions
     print(f"{Table(1,2,3).dict = }") # {}
     print(f"{Table(foo='bar', spam='eggs').list = }") # []
     print(f"{Table(foo='bar', spam='eggs').dict = }") # {'foo': 'bar', 'spam': 'eggs'}
+    print(f"{Table(1,2,3, foo='bar', spam='eggs').foreach((lambda _, y: y ), True, False) = }") # [1,2,3]
     exit(0)
 
 # Unit tests
@@ -225,5 +226,6 @@ def test_Table():
     assert x.dict == {"foo":"bar", "spam":"eggs"}, "Test 6 failed!"
     assert x == Table(1,2,3, foo="bar", spam="eggs"), "Test 7 failed!"
     assert x + Table(4,5,6) == Table(1,2,3,4,5,6, foo="bar", spam="eggs"), "Test 8 failed!"
+    assert x.foreach(lambda k, v: [k, v]) == [0, 1, 1, 2, 2, 3, "foo", "bar", "spam", "eggs"], "Test 9 failed!"
     #congrats, the code works!
     print("All tests passed!")
