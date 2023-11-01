@@ -22,17 +22,17 @@ class Table(Iterable):
     def __init__(self, **dict_values: Optional[Any]): ...
     @overload
     def __init__(self, *list_values: Optional[Any], **dict_values: Optional[Any]): ...
-    
+
     @overload
     def __delitem__(self, key: KeyValue): ...
     @overload
     def __delitem__(self, key: Iterable[KeyValue]): ...
-    
+
     @overload
     def __setitem__(self, key: KeyValue, value: Any): ...
     @overload
     def __setitem__(self, key: Iterable[KeyValue], value: Iterable[Any]): ...
-    
+
     @overload
     def find_keys(self, value: Any, /) -> KeyValue: ...
     @overload
@@ -44,7 +44,7 @@ class Table(Iterable):
     # KeyValue: str | int
     # TODO: Ensure that all lines have type hinting
     ###############################################
-    
+
     @override
     def __init__(self, *args: Optional[Any], **kwargs: Optional[Any]):
         if ( #Table([], {})
@@ -56,7 +56,7 @@ class Table(Iterable):
             self.list = args[0]
             self.dict = args[1]
             return
-            
+
         elif ( #Table([])
             len(args) == 1 and
             len(kwargs) == 0 and
@@ -178,7 +178,15 @@ class Table(Iterable):
         if isinstance(other, Table):
             return self.list == other.list and self.dict == other.dict
         return False
-    
+    def __add__(self, other: Any) -> "Table":
+        if isinstance(other, Table):
+            return Table(self.list + other.list, self.dict | other.dict)
+        elif isinstance(other, list):
+            return Table(self.list + other, self.dict)
+        elif isinstance(other, dict):
+            return Table(self.list, self.dict | other)
+        else:
+            raise TypeError(f"unsupported operand type(s) for +: 'Table' and '{type(other).__name__}'")
 
 ###############################################################################################################
 if __name__ == "__main__" and not __debug__: # definitions
@@ -216,5 +224,6 @@ def test_Table():
     assert x.list == [1,2,3], "Test 5 failed!"
     assert x.dict == {"foo":"bar", "spam":"eggs"}, "Test 6 failed!"
     assert x == Table(1,2,3, foo="bar", spam="eggs"), "Test 7 failed!"
+    assert x + Table(4,5,6) == Table(1,2,3,4,5,6, foo="bar", spam="eggs"), "Test 8 failed!"
     #congrats, the code works!
     print("All tests passed!")
