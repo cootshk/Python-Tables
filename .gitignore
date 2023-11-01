@@ -3,4 +3,4 @@
 .vscode/*
 .idea/*
 .github/*
-tests/*
+.pytest_cache/*

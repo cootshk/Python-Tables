@@ -205,7 +205,8 @@ if __name__ == "__main__" and not __debug__: # definitions
     print(f"{Table(foo='bar', spam='eggs').dict = }") # {'foo': 'bar', 'spam': 'eggs'}
     exit(0)
 
-if __name__ == "__main__": # Unit tests
+# Unit tests
+def test_Table():
     assert True, "Test 0 failed!"
     assert repr(Table()) == "Table()", "Test 1 failed!"
     assert repr(Table(1, 2, 3)) == "Table([1, 2, 3])", "Test 2 failed!"
