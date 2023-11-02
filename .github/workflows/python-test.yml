@@ -33,4 +33,5 @@ jobs:
         CURRENT_DIR=$(pwd)
         cd $CURRENT_DIR
         if [[ -d "tests" ]]; then cd tests; fi
-        pytest .
+        cd .. # hopefully we are back in the root directory
+        pytest tests
