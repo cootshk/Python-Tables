@@ -28,10 +28,15 @@ jobs:
         python -m pip install --upgrade pip
         pip install pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Test with pytest
+    - name: Get into correct directory
       run: |
         CURRENT_DIR=$(pwd)
         cd $CURRENT_DIR
         if [[ -d "tests" ]]; then cd tests; fi
         cd .. # hopefully we are back in the root directory
+    - name: Run python file
+      run: |
+        python tables.py
+    - name: Test with pytest
+      run: |
         pytest tests
