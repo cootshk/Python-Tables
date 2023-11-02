@@ -26,6 +26,9 @@ class Table(Iterable):
         Table([1, 2, 3], {}) # Table([1, 2, 3])
         Table(1,2,3) == Table([1,2,3]) # True
         len(Table("a", "b", "c", four="d", five="e")) # 5
+    Types:
+        KeyValue (str | int): Any key value, either a string or an int. A string is used for dictionary keys, 
+            and an int is used for list indices.
     """
     type KeyValue = str | int
     # typing
@@ -60,7 +63,7 @@ class Table(Iterable):
     def find_keys(self, value: Any, /) -> KeyValue: ...
 
     @overload
-    def find_keys[default: Any](
+    def find_keys[default](
         self, value: Any, /, *, default: Any = None) -> list[KeyValue] | default: ...
 
     @overload

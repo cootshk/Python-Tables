@@ -1,4 +1,12 @@
-from ..tables import Table
+"""Definitons for tests.
+"""
+try:
+    from ..tables import Table
+except:
+    try:
+        from tables import Table
+    except:
+        from .tables import Table
 
 if __name__ == "__main__": # definitions
     print("Table definitions:")
@@ -22,4 +30,4 @@ if __name__ == "__main__": # definitions
     print(f"{Table(1,2,3).dict = }") # {}
     print(f"{Table(foo='bar', spam='eggs').list = }") # []
     print(f"{Table(foo='bar', spam='eggs').dict = }") # {'foo': 'bar', 'spam': 'eggs'}
-    print(f"{Table(1,2,3, foo='bar', spam='eggs').foreach((lambda _, y: y ), True, False) = }")
+    #print(f"{Table(1,2,3, foo='bar', spam='eggs').foreach((lambda _, y: y ), True, False) = }")
