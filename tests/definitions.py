@@ -1,4 +1,4 @@
-from ..main import Table
+from ..tables import Table
 
 if __name__ == "__main__": # definitions
     print("Table definitions:")
