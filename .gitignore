@@ -2,7 +2,6 @@
 .env
 .vscode/*
 .idea/*
-.github/*
 .pytest_cache/*
 dist/*
 python_tables.egg-info/*
