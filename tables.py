@@ -5,7 +5,7 @@
     """
 
 # check for python version
-from typing import Iterable, override, Any, Optional, overload, Callable
+from typing import Iterable, Any, Optional, overload, Callable
 import sys
 if sys.version_info < (3, 12):
     print("This script requires Python 3.12+")
@@ -27,7 +27,7 @@ class Table(Iterable):
         Table(1,2,3) == Table([1,2,3]) # True
         len(Table("a", "b", "c", four="d", five="e")) # 5
     Types:
-        KeyValue (str | int): Any key value, either a string or an int. A string is used for dictionary keys, 
+        KeyValue (str | int): Any key value, either a string or an int. A string is used for dictionary keys,
             and an int is used for list indices.
     """
     type KeyValue = str | int
@@ -64,6 +64,7 @@ class Table(Iterable):
 
     @overload
     def find_keys[default](
+        # type: ignore
         self, value: Any, /, *, default: Any = None) -> list[KeyValue] | default: ...
 
     @overload
@@ -109,13 +110,12 @@ class Table(Iterable):
     # sort
     ###############################################
 
-    @override
     def __init__(self, *args: Optional[Any], **kwargs: Optional[Any]):
-        """The init function. 
+        """The init function.
         Args:
             *list_values (list[Any] | Any): The list values. If there is only one argument, then that is set to the list.
             **dict_values (dict[str, Any] | Any): The dict values. If there is only one argument, then that is set to the dict.
-        
+
         Examples:
             see the Table() documentation
 
@@ -159,7 +159,7 @@ class Table(Iterable):
         elif isinstance(key, int):
             self.list[key] = value
         elif isinstance(key, Iterable):
-            for i, j, _ in zip(key, value):
+            for i, j in zip(key, value):
                 self[i] = j
         else:
             raise TypeError(f"Table indices must be integers or strings, not {
@@ -187,7 +187,6 @@ class Table(Iterable):
                 raise TypeError(f"Table indices must be integers or strings, not {
                                 type(key).__name__}")
 
-    @override
     def __iter__(self) -> Any:
         return iter(self.list)
 
@@ -200,7 +199,6 @@ class Table(Iterable):
     def _dict_len_(self) -> int:
         return len(self.dict)
 
-    @override
     def __repr__(self) -> str:
         if len(self) == 0:
             return "Table()"
@@ -214,19 +212,19 @@ class Table(Iterable):
             ret += f"{k}: {v if not isinstance(v, str) else f"'{v}'"}, "
         return ret.removesuffix(", ")
 
-    @override
     def __str__(self) -> str:
         # if len(self) == 0:
         #    return "<>"
         return f"<{(''.join([
             f'{x}, ' for x in self.list
         ])).removesuffix(', ')}, {
-                self._unpack_kwargs_to_str_()}>".replace(
+            self._unpack_kwargs_to_str_()}>".replace(
                     "<, ", "<").replace(
                         ", >", ">")
 
     def __contains__(self, key: str) -> bool:
         return (key in self.dict) or (key in self.list)
+
     def find_keys(self, value: Any, /, *, default: Any=None) -> list[KeyValue] | Any:
         """Finds all keys and indices that have a value equal to value.
 
@@ -250,7 +248,6 @@ class Table(Iterable):
             return ret[0]
         return ret
 
-    @override
     def append(self, value: Any) -> "Table":
         """Append a value to the end of the list.
 
@@ -263,7 +260,6 @@ class Table(Iterable):
         self.list.append(value)
         return self
 
-    @override
     def extend(self, value: Iterable[Any]) -> "Table":
         """Extend the list with another iterable.
 
@@ -276,7 +272,6 @@ class Table(Iterable):
         self.list.extend(value)
         return self
 
-    @override
     def insert(self, index: int, value: Any) -> "Table":
         """Insert a value at a specific index.
 
@@ -290,7 +285,6 @@ class Table(Iterable):
         self.list.insert(index, value)
         return self
 
-    @override
     def pop(self, index: int = -1) -> Any:
         """Returns a specific value in a list and removes it.
 
@@ -351,7 +345,7 @@ class Table(Iterable):
         ret += list(self.dict.keys()).count(value) if count_dict_keys else 0
         return ret
 
-    def foreach(self, func: Callable, /, list_eval: bool =True, dict_eval: bool=True) -> list[Any] | Any:
+    def foreach(self, func: Callable, /, list_eval: bool = True, dict_eval: bool=True) -> list[Any] | Any:
         """Call a function on each item in the table.
 
         Args:
@@ -371,13 +365,13 @@ class Table(Iterable):
         ret = []
         if bool(list_eval):
             for i, j in enumerate(self.list):
-                ret += func(i, j)  # type: ignore
+                print(i, j,func)
+                ret.append(func(i, j))
         if bool(dict_eval):
             for k, v in zip(self.dict.keys(), self.dict.values()):
-                ret += func(k, v)  # type: ignore
+                ret.append(func(k, v))  # type: ignore
         return ret if len(ret) > 1 else ret[0] if len(ret) == 1 else None
 
-    @override
     def __eq__(self, other):
         if isinstance(other, Table):
             return self.list == other.list and self.dict == other.dict
@@ -394,8 +388,8 @@ class Table(Iterable):
             raise TypeError(
                 f"unsupported operand type(s) for +: 'Table' and '{type(other).__name__}'")
 
-    @override
-    def sort(self, *, key: Optional[Callable] = None, reverse: bool=False) -> "Table":
+ # type: ignore
+    def sort(self, *, key: Any = None, reverse: bool =False) -> "Table":
         """Sorts the list in place.
 
         Args:
@@ -408,7 +402,6 @@ class Table(Iterable):
         self.list.sort(key=key, reverse=reverse)
         return self
 
-    @override
     def __bool__(self) -> bool:
         return bool(self.list) or bool(self.dict)
 
