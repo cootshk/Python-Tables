@@ -1,7 +1,13 @@
 """Unit tests for main.py
 """
 
-from ..tables import Table
+try:
+    from ..tables import Table
+except:
+    try:
+        from tables import Table
+    except:
+        from .tables import Table
 
 def test_tables():
     """Unit tests for Table() class
