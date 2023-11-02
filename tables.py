@@ -351,7 +351,7 @@ class Table(Iterable):
         ret += list(self.dict.keys()).count(value) if count_dict_keys else 0
         return ret
 
-    def foreach(self, func: Callable, /, list_eval: bool =True, dict_eval: bool=True):
+    def foreach(self, func: Callable, /, list_eval: bool =True, dict_eval: bool=True) -> list[Any] | Any:
         """Call a function on each item in the table.
 
         Args:
