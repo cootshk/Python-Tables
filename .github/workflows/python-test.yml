@@ -30,4 +30,7 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Test with pytest
       run: |
-        pytest tests
+        CURRENT_DIR=$(pwd)
+        cd $CURRENT_DIR
+        if [[ -d "tests" ]]; then cd tests; fi
+        pytest .
