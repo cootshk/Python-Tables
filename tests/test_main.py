@@ -36,5 +36,6 @@ def test_tables():
     assert x == Table(1,2,3, foo="bar", spam="eggs"), "Test 7 failed!"
     assert x + Table(4,5,6) == Table(1,2,3,4,5,6, foo="bar", spam="eggs"), "Test 8 failed!"
     assert x.foreach(lambda k, v: [k, v]) == [0, 1, 1, 2, 2, 3, "foo", "bar", "spam", "eggs"], "Test 9 failed!"
+    assert Table(1,3,2).sort() == Table(1,2,3), "Test 10 failed!"
     #congrats, the code works!
     print("All tests passed!")

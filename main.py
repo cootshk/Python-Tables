@@ -187,4 +187,7 @@ class Table(Iterable):
             return Table(self.list, self.dict | other)
         else:
             raise TypeError(f"unsupported operand type(s) for +: 'Table' and '{type(other).__name__}'")
-
+    @override
+    def sort(self, key: Optional[Callable]=None, reverse: bool=False):
+        self.list.sort(key=key, reverse=reverse)
+        return self
