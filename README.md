@@ -4,7 +4,7 @@ Implementing tables from Lua into Python 3.12
 ## Usage
 
 ```bash
-pip install python-tables
+pip install -U python-tables
 ```
 
 ```py
