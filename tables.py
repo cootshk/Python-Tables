@@ -406,10 +406,6 @@ class Table(Iterable):
         return self
 
     @override
-    def __hash__(self) -> int:
-        return hash((self.list, self.dict))
-
-    @override
     def __bool__(self) -> bool:
         return bool(self.list) or bool(self.dict)
 
